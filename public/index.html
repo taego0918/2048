@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        body {
+            padding: 50px;
+            font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+        }
+
+        a {
+            color: #00B7FF;
+        }
+
+        .chats {
+            padding: 10px 5px;
+            height: 200px;
+            width: 500px;
+            background: #eee;
+            overflow-y: scroll;
+        }
+
+        .chats .chat {
+            display: flex;
+            margin: 5px 0;
+        }
+
+        .chats .chat .group {
+            display: inherit;
+            word-wrap: normal;
+        }
+
+        .chats .chat .group .name {
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        .chats .chat .time {
+            padding-left: 10px;
+            font-size: 10px;
+            line-height: 18px;
+            color: #aaa;
+        }
+
+        .message {
+            margin-top: 10px;
+        }
+
+        .message input {
+            padding: 0 5px;
+            height: 25px;
+            width: 300px;
+        }
+
+        .message input:first-child {
+            width: 80px;
+        }
+
+        .message button {
+            height: 32px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>在線人數:<span class="connect-num">0</span></div>
+    <div class="chats">
+    </div>
+    <div class="message">
+        <input id="name"    type="text" placeholder="輸入您的姓名" />
+        <input id="msg"     type="text" placeholder="輸入您的訊息" />
+        <button type="button">送出</button>
+    </div>
+
+    <script src="js/socket.io.js"></script>
+    <script>
+        let socket = io.connect('http://192.168.1.128:8092', { 'reconnect': true });
+        let chats = document.getElementsByClassName('chats')[0];
+        let connectNum = document.getElementsByClassName('connect-num')[0];
+        document.querySelector('button').addEventListener('click', () => {
+            Send();
+        });
+        socket.emit('connectNum');
+        socket.on('connectNum',data =>{
+            connectNum.innerHTML = data;
+        })
+
+        socket.on('message', data => {
+            let dt = new Date(data.time);
+            let htmlData =  '<div class="chat">'+
+                            '<div class="group">'+
+                            '<div class="name">'+data.name+'：</div>'+
+                            '<div class="msg">'+data.msg+'</div>'+
+                            '</div>'+
+                            '<div class="time">'+
+                                dt.getFullYear()+'/'+
+                                (dt.getMonth()+1)+'/'+
+                                dt.getDate()+' '+
+                                dt.getHours()+':'+
+                                dt.getMinutes()+':'+
+                                dt.getSeconds()+
+                            '</div>'+
+                            '</div>';
+            chats.innerHTML += htmlData;
+            chats.scrollTo(0, chats.scrollHeight);
+        })
+
+        function Send() {
+            let name = document.getElementById('name').value,
+                msg = document.getElementById('msg').value,
+                data;
+            if (!msg && !name) {
+                alert('輸入您的姓名和訊息');
+                return;
+            }
+            data = {name: name,msg: msg};
+            socket.emit('message', data);
+            document.getElementById('msg').value = '';
+        }
+    </script>
+</body>
+</html>

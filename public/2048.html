@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+    <head>
+        <title>2048</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <style>
+            body{
+                margin: 0px;
+                padding: 0px;
+                -moz-user-select: none;  /* for Firefox */ 
+                -webkit-user-select: none;   /* for Chrome */
+                overscroll-behavior: contain;
+            }
+            .title{
+                width: 500px;
+                height: 60px;
+                display: flex;
+                position:absolute;
+                top:calc(50% - 270px);
+                left: 50%;
+                transform: translate(-50%,-50%);
+            }
+            .title >div{
+                width: calc(100% / 4);
+                font-size: 16px;
+                line-height: 60px;
+            }
+            .game{
+                width: 500px;
+                height: 500px;
+                border: 1px solid #cccccc;
+                position:absolute;
+                top:50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                display: flex;
+                flex-wrap: wrap;
+                border-radius: 10px;
+            }
+            .gameBG{
+                background-color: rgba(200,200,200,1)
+            }
+            .game > div{
+                width: calc(100% / 25 * 4) ;
+                height: calc(100% / 25 * 4) ;
+                margin: calc(100% / 50) ;
+                text-align: center;
+                border-radius: 10px;
+            }
+            .power1{background-color: rgba(255,0,0,0.05) }
+            .power2{background-color: rgba(255,0,0,0.1) }
+            .power3{background-color: rgba(255,0,0,0.2) }
+            .power4{background-color: rgba(255,0,0,0.3) }
+            .power5{background-color: rgba(255,0,0,0.4) }
+            .power6{background-color: rgba(255,0,0,0.5) }
+            .power7{background-color: rgba(255,0,0,0.6) }
+            .power8{background-color: rgba(255,0,0,0.7) }
+            .power9{background-color: rgba(255,0,0,0.8) }
+            .power10{background-color: rgba(255,0,0,0.9) }
+            .power11{background-color: rgba(255,0,0,1) }
+            div[class*="power"] {
+                position:absolute;
+            }
+            .gameOver{
+                background: rgba(0,0,0,0.6);
+                display: none;
+                width: 100vw;
+                height: 100vh;
+                position:absolute;
+                top: 0;
+                left: 0;
+            }
+            .gameOver > div{
+                position: absolute;
+                top : 50%;
+                left : 50%;
+                transform : translate(-50%,-50%);
+                font-size : 64px;
+                color : #ffffff;
+                text-align: center;
+            }
+            .gameOver .reset{
+                cursor: pointer;
+            }
+            .gameOver .reset:hover{
+                color: #cccccc;
+            }
+            @media screen and (max-width: 600px){
+                .game{
+                    width: 300px;
+                    height: 300px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="title">
+            <div>分數</div>
+            <div id="point">0</div>
+            <div>最高分</div>
+            <div id="top-point">0</div>
+        </div>
+        <div class="game">
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+            <div class="gameBG"></div>
+        </div>
+        <div class="gameOver">
+            <div>Game Over<div class="reset">reset</div></div>
+        </div>
+        <script src="js/2048.js">
+        </script>
+        <script>
+            window.onload = function(){
+                let game = new Game(document.getElementsByClassName('game')[0]);
+                document.getElementsByClassName('reset')[0].addEventListener('click',()=>{
+                    game.reset();
+                })
+            }
+        </script>
+    </body>
+</html>
