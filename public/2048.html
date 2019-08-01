@@ -10,53 +10,54 @@
                 -webkit-user-select: none;   /* for Chrome */
                 overscroll-behavior: contain;
             }
-            .title{
+            .personal{
+                width: 500px;
+                margin: 0 auto;
+            }
+            .personal .title{
                 width: 500px;
                 height: 60px;
                 display: flex;
-                position:absolute;
-                top:calc(50% - 270px);
-                left: 50%;
-                transform: translate(-50%,-50%);
             }
-            .title >div{
+            .personal .title >div{
                 width: calc(100% / 4);
                 font-size: 16px;
                 line-height: 60px;
             }
-            .game{
+            .personal .game{
                 width: 500px;
                 height: 500px;
-                border: 1px solid #cccccc;
+                /* border: 1px solid #bbada0; */
                 position:absolute;
-                top:50%;
-                left: 50%;
-                transform: translate(-50%,-50%);
                 display: flex;
                 flex-wrap: wrap;
                 border-radius: 10px;
+                box-shadow:1px 1px 5px 5px rgba(0,0,0,0.2);
             }
             .gameBG{
-                background-color: rgba(200,200,200,1)
+                background-color: #cdc0b4;
             }
             .game > div{
+                font-size: 24px;
+                font-weight: bold;
                 width: calc(100% / 25 * 4) ;
                 height: calc(100% / 25 * 4) ;
                 margin: calc(100% / 50) ;
                 text-align: center;
                 border-radius: 10px;
+                color: #ffffff;
             }
-            .power1{background-color: rgba(255,0,0,0.05) }
-            .power2{background-color: rgba(255,0,0,0.1) }
-            .power3{background-color: rgba(255,0,0,0.2) }
-            .power4{background-color: rgba(255,0,0,0.3) }
-            .power5{background-color: rgba(255,0,0,0.4) }
-            .power6{background-color: rgba(255,0,0,0.5) }
-            .power7{background-color: rgba(255,0,0,0.6) }
-            .power8{background-color: rgba(255,0,0,0.7) }
-            .power9{background-color: rgba(255,0,0,0.8) }
-            .power10{background-color: rgba(255,0,0,0.9) }
-            .power11{background-color: rgba(255,0,0,1) }
+            .power1{ background-color : #25abe7;}
+            .power2{ background-color : #00e5ce;}
+            .power3{ background-color : #1bd461;}
+            .power4{ background-color : #a3d700;}
+            .power5{ background-color : #f7db08;}
+            .power6{ background-color : #ffae00;}
+            .power7{ background-color : #ff7529;}
+            .power8{ background-color : #f72439;}
+            .power9{ background-color : #f71ca5;}
+            .power10{background-color : #ce28ce;}
+            .power11{background-color : #772adc;}
             div[class*="power"] {
                 position:absolute;
             }
@@ -84,6 +85,64 @@
             .gameOver .reset:hover{
                 color: #cccccc;
             }
+            .playerList{
+                box-shadow:10px 10px 10px 10px rgba(0,0,0,0.2);
+                width: 100vw;
+                position: fixed;
+                display: flex;
+                flex-wrap: wrap;
+                bottom: 0px;
+            }
+            .playerList >div{
+                border-radius: 20px;
+                width: 320px;
+                overflow: hidden;
+                border: 1px solid #cccccc;
+                margin: 5px 0px 5px 0px;
+                box-shadow:1px 1px 1px 1px rgba(0,0,0,0.2);
+            }
+            .playerList .name{
+                width: 100%;
+                text-align: center;
+                font-size: 20px;
+                line-height: 30px;
+            }
+            .playerList .data{
+                width: 100%;
+                display: flex;
+                font-size: 16px;
+                line-height: 30px;
+            }
+            .playerList .data >div{
+                padding-left: 1em;
+                width: calc(100% / 4);
+                font-size: 16px;
+                line-height: 30px;
+            }
+            .playerList .game{
+                margin: 0 auto;
+                width: 280px;
+                height: 280px;
+                border: 1px solid #cccccc;
+                display: flex;
+                flex-wrap: wrap;
+                border-radius: 10px;
+                position: relative;
+                top:0px;
+                left:0px;
+                transform: translate(0,0);
+            }
+            .playerList .game > div{
+                width: calc(100% / 25 * 4) ;
+                height: calc(100% / 25 * 4) ;
+                margin: calc(100% / 50) ;
+                text-align: center;
+                border-radius: 10px;
+                line-height: 46px;
+            }
+            .playerList .game > div[class*="power"] {
+                position:relative;
+            }
             @media screen and (max-width: 600px){
                 .game{
                     width: 300px;
@@ -93,47 +152,107 @@
         </style>
     </head>
     <body>
-        <div class="title">
-            <div>分數</div>
-            <div id="point">0</div>
-            <div>最高分</div>
-            <div id="top-point">0</div>
+        <div class="personal">
+            <div class="title">
+                <div>分數</div>
+                <div id="point">0</div>
+                <div>最高分</div>
+                <div id="top-point">0</div>
+            </div>
+            <div class="game">
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+                <div class="gameBG"></div>
+            </div>
         </div>
-        <div class="game">
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
-            <div class="gameBG"></div>
+        <div class="playerList">
         </div>
         <div class="gameOver">
             <div>Game Over<div class="reset">reset</div></div>
         </div>
-        <script src="js/2048.js">
-        </script>
+        <script src="js/socket.io.js"></script>
+        <script src="js/2048.js"></script>
         <script>
             window.onload = function(){
-                let game = new Game(document.getElementsByClassName('game')[0]);
+                function youName(){
+                    let person = prompt("请输入您的名字：");
+                    if (person == null || person == "") {
+                        youName();
+                    } else {
+                        localStorage.setItem("name", person );
+                    }
+                }
+                if(localStorage.getItem("name") === null){
+                    youName();
+                }
+
+                let socket = io.connect('http://192.168.1.128:8092', { 'reconnect': true });
+                socket.on('OPData',(obj)=>{
+                    let playerList = document.getElementsByClassName('playerList')[0];
+                    for(let item = 0 ;item< obj.length;item++){
+                        let dir;
+                        if(localStorage.getItem("name") !== obj[item].name ){
+                            let playerName = document.getElementById( obj[item].name );
+                            if(playerName === null){
+                                let player = document.createElement('div');
+                                let div    = document.createElement('div');
+                                player.id = obj[item].name;
+                                playerList.appendChild(player);
+                                playerName = document.getElementById( obj[item].name );
+                                playerName.innerHTML =  '<div class="name">'+obj[item].name+'</div>';
+                                playerName.innerHTML += '<div class="data"><div>分數</div><div class="point">0</div><div>最高分</div><div class="top-point">0</div></div>';
+                                playerName.innerHTML += '<div class="game"></div>';
+                            }
+                            if(typeof obj[item].gridList !== "undefined"){
+
+                                let game     = playerName.getElementsByClassName('game')[0];
+                                let point    = playerName.getElementsByClassName('point')[0];
+                                let topPoint = playerName.getElementsByClassName('top-point')[0];
+                                point.innerHTML =  obj[item].point; 
+                                topPoint.innerHTML = obj[item].TPoint;
+                                game.innerHTML ='';
+                                for(let i=0;i < obj[item].gridList.length;i++){
+                                    let txt = obj[item].gridList.substr(i,1);
+                                    if(txt ==='0'){
+                                        game.innerHTML += '<div class="gameBG"></div>';
+                                    }else{
+                                        let num = parseInt(txt, 16);
+                                        if(num<11){
+                                            game.innerHTML += '<div class="power'+ num+'">'+Math.pow(2,num)+'</div>';
+                                        }else{
+                                            game.innerHTML += '<div class="power11">'+Math.pow(2,num)+'</div>';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                let game = new Game(document.getElementsByClassName('game')[0],socket);
+
                 document.getElementsByClassName('reset')[0].addEventListener('click',()=>{
                     game.reset();
                 })
