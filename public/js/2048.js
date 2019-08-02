@@ -96,7 +96,7 @@ let Game = function(obj,_socket){
             }else{
                 div.classList.add('power11');
             }
-            div.innerHTML= Math.pow(2,_power);
+            // div.innerHTML= Math.pow(2,_power);
             self.point += Math.pow(2,_power);
 
             point.innerHTML = self.point;
@@ -104,33 +104,34 @@ let Game = function(obj,_socket){
                 self.topPoint = self.point;
                 topPoint.innerHTML = self.topPoint;
             } 
-        }, (timeout -0.1) *1000);
+        }, (timeout-0.1) *1000);
     }
     self.gridMove = (_direction) =>{
         switch(_direction){
             case 'up':
                 for(let row = 0;row < 5;row++){
+                    let sNum = 0;
                     for(let col = 1;col < 5;col++){
                         if( typeof self.gridList[col * 5 + row] ==='undefined'){continue;}
-                        for(let item = 0;item < col;item++){
+                        for(let item = sNum;item < col;item++){
                             let last = true;
                             for(let item2 = item+1;item2 < col;item2++){
                                 if(typeof self.gridList[item2 * 5 + row] !=='undefined'){last = false;}
                             }
-                            if(last){
-                                if( typeof self.gridList[item * 5 + row] ==='undefined'){
-                                    self.gridList[item * 5 + row] = self.gridList[col * 5 + row];
-                                    self.classChange(parseInt(col * 5 + row),parseInt(item * 5 + row));
-                                    delete self.gridList[col * 5 + row];
-                                    item = 5;
-                                }else if( self.gridList[item * 5 + row] === self.gridList[col * 5 + row]){
-                                    self.gridList[item * 5 + row]++;
-                                    self.classReplace(  item * 5 + row,
-                                                        col * 5 + row,
-                                                        self.gridList[item * 5 + row]);
-                                    delete self.gridList[col * 5 + row];
-                                    item = 5;
-                                }
+                            if(!last){continue;}
+                            if( typeof self.gridList[item * 5 + row] ==='undefined'){
+                                self.gridList[item * 5 + row] = self.gridList[col * 5 + row];
+                                self.classChange(parseInt(col * 5 + row),parseInt(item * 5 + row));
+                                delete self.gridList[col * 5 + row];
+                                item = 5;
+                            }else if( self.gridList[item * 5 + row] === self.gridList[col * 5 + row]){
+                                self.gridList[item * 5 + row]++;
+                                self.classReplace(  item * 5 + row,
+                                                    col * 5 + row,
+                                                    self.gridList[item * 5 + row]);
+                                delete self.gridList[col * 5 + row];
+                                sNum = item+1;
+                                item = 5;
                             }
                         }
                     }
@@ -138,27 +139,28 @@ let Game = function(obj,_socket){
                 break;
             case 'down':
                 for(let row = 0;row < 5;row++){
+                    let sNum = 4;
                     for(let col = 3;col > -1;col--){
                         if( typeof self.gridList[col * 5 + row] ==='undefined'){continue;}
-                        for(let item = 4;item > col;item--){
+                        for(let item = sNum;item > col;item--){
                             let last = true;
                             for(let item2 = item-1;item2 > col;item2--){
                                 if(typeof self.gridList[item2 * 5 + row] !=='undefined'){last = false;}
                             }
-                            if(last){
-                                if( typeof self.gridList[item * 5 + row] ==='undefined'){
-                                    self.gridList[item * 5 + row] = self.gridList[col * 5 + row];
-                                    self.classChange(parseInt(col * 5 + row),parseInt(item * 5 + row));
-                                    delete self.gridList[col * 5 + row];
-                                    item = -1;
-                                }else if( self.gridList[item * 5 + row] === self.gridList[col * 5 + row]){
-                                    self.gridList[item * 5 + row]++;
-                                    self.classReplace(  item * 5 + row,
-                                                        col * 5 + row,
-                                                        self.gridList[item * 5 + row]);
-                                    delete self.gridList[col * 5 + row];
-                                    item = -1;
-                                }
+                            if(!last){continue;}
+                            if( typeof self.gridList[item * 5 + row] ==='undefined'){
+                                self.gridList[item * 5 + row] = self.gridList[col * 5 + row];
+                                self.classChange(parseInt(col * 5 + row),parseInt(item * 5 + row));
+                                delete self.gridList[col * 5 + row];
+                                item = -1;
+                            }else if( self.gridList[item * 5 + row] === self.gridList[col * 5 + row]){
+                                self.gridList[item * 5 + row]++;
+                                self.classReplace(  item * 5 + row,
+                                                    col * 5 + row,
+                                                    self.gridList[item * 5 + row]);
+                                delete self.gridList[col * 5 + row];
+                                sNum = item-1;
+                                item = -1;
                             }
                         }
                     }
@@ -166,27 +168,28 @@ let Game = function(obj,_socket){
                 break;
             case 'left':
                 for(let col = 0;col < 5;col++){
+                    let sNum = 0;
                     for(let row = 1;row < 5;row++){
                         if( typeof self.gridList[col * 5 + row] === 'undefined'){continue;}
-                        for(let item = 0;item < row;item++){
+                        for(let item = sNum;item < row;item++){
                             let last = true;
                             for(let item2 = item+1;item2 < row;item2++){
                                 if(typeof self.gridList[col * 5 + item2]!=='undefined'){last = false;}
                             }
-                            if(last){
-                                if( typeof self.gridList[col * 5 + item] === 'undefined'){
-                                    self.gridList[col * 5 + item] = self.gridList[col * 5 + row];
-                                    self.classChange(parseInt(col * 5 + row),parseInt(col * 5 + item));
-                                    delete self.gridList[col * 5 + row];
-                                    item = 6;
-                                }else if( self.gridList[col * 5 + item] === self.gridList[col * 5 + row]){
-                                    self.gridList[col * 5 + item]++;
-                                    self.classReplace(  col * 5 + item,
-                                                        col * 5 + row,
-                                                        self.gridList[col * 5 + item]);
-                                    delete self.gridList[col * 5 + row];
-                                    item = 6;
-                                }
+                            if(!last){continue;}
+                            if( typeof self.gridList[col * 5 + item] === 'undefined'){
+                                self.gridList[col * 5 + item] = self.gridList[col * 5 + row];
+                                self.classChange(parseInt(col * 5 + row),parseInt(col * 5 + item));
+                                delete self.gridList[col * 5 + row];
+                                item = 6;
+                            }else if( self.gridList[col * 5 + item] === self.gridList[col * 5 + row]){
+                                self.gridList[col * 5 + item]++;
+                                self.classReplace(  col * 5 + item,
+                                                    col * 5 + row,
+                                                    self.gridList[col * 5 + item]);
+                                delete self.gridList[col * 5 + row];
+                                sNum = item+1;
+                                item = 6;
                             }
                         }
                     }
@@ -194,27 +197,28 @@ let Game = function(obj,_socket){
                 break;
             case 'right':
                 for(let col = 0;col < 5;col++){
+                    let sNum = 4;
                     for(let row = 3;row > -1;row--){
                         if( typeof self.gridList[col * 5 + row] === 'undefined'){continue;}
-                        for(let item = 4;item > row;item--){
+                        for(let item = sNum;item > row;item--){
                             let last = true;
                             for(let item2 = item-1;item2 > row;item2--){
                                 if(typeof self.gridList[col * 5 + item2]!=='undefined'){last = false;}
                             }
-                            if(last){
-                                if( typeof self.gridList[col * 5 + item] === 'undefined'){
-                                    self.gridList[col * 5 + item] = self.gridList[col * 5 + row];
-                                    self.classChange(parseInt(col * 5 + row),parseInt(col * 5 + item));
-                                    delete self.gridList[col * 5 + row];
-                                    item=-1;
-                                }else if( self.gridList[col * 5 + item] === self.gridList[col * 5 + row]){
-                                    self.gridList[col * 5 + item]++;
-                                    self.classReplace(  col * 5 + item,
-                                                        col * 5 + row,
-                                                        self.gridList[col * 5 + item]);
-                                    delete self.gridList[col * 5 + row];
-                                    item=-1;
-                                }
+                            if(!last){continue;}
+                            if( typeof self.gridList[col * 5 + item] === 'undefined'){
+                                self.gridList[col * 5 + item] = self.gridList[col * 5 + row];
+                                self.classChange(parseInt(col * 5 + row),parseInt(col * 5 + item));
+                                delete self.gridList[col * 5 + row];
+                                item=-1;
+                            }else if( self.gridList[col * 5 + item] === self.gridList[col * 5 + row]){
+                                self.gridList[col * 5 + item]++;
+                                self.classReplace(  col * 5 + item,
+                                                    col * 5 + row,
+                                                    self.gridList[col * 5 + item]);
+                                delete self.gridList[col * 5 + row];
+                                sNum = item-1;
+                                item=-1;
                             }
                         }
                     }
@@ -282,6 +286,12 @@ let Game = function(obj,_socket){
             if(typeof self.gridList[item] === "undefined"){
                 gridList += '0'
             }else{
+                let chkDiv = document.getElementsByClassName('pos-'+item)[0];
+                if(chkDiv.className.indexOf('power'+self.gridList[item] == -1 )){
+                    chkDiv.className = '';
+                    chkDiv.classList.add('pos-'+item);
+                    chkDiv.classList.add('power'+self.gridList[item]);
+                }
                 gridList +=  self.gridList[item].toString(16);
             }
         }
@@ -291,9 +301,7 @@ let Game = function(obj,_socket){
             TPoint : self.topPoint,
             gridList: gridList
         }
-
         self.socket.emit('gamerData',data);
-
         return returnData;
     }
 
@@ -317,9 +325,9 @@ let Game = function(obj,_socket){
         div.style.lineHeight = self.lineHeight + 'px';
         div.style.top = parseInt(_position / 5) * self.gridHeight + 'px';
         div.style.left = (_position % 5) * self.gridWidth  + 'px';
-        div.style.transition = '0.5s';
+        div.style.transition = '0.3s';
         div.style.opacity = '0';
-        div.innerHTML = Math.pow(2,_power);
+        // div.innerHTML = Math.pow(2,_power);
         div.classList.add('power'+_power);
         div.classList.add('pos-'+_position);
         self.obj.appendChild(div);

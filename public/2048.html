@@ -57,7 +57,32 @@
             .power8{ background-color : #f72439;}
             .power9{ background-color : #f71ca5;}
             .power10{background-color : #ce28ce;}
-            .power11{background-color : #772adc;}
+            .power11,.power12,.power13,.power14,.power15,.power16,.power17,.power18,.power19,.power20,.power21,.power22,.power23,.power24,.power25 {background-color : #772adc;}
+            .power1::before{ content: '2';}
+            .power2::before{ content: '4';}
+            .power3::before{ content: '8';}
+            .power4::before{ content: '16';}
+            .power5::before{ content: '32';}
+            .power6::before{ content: '64';}
+            .power7::before{ content: '128';}
+            .power8::before{ content: '256';}
+            .power9::before{ content: '512';}
+            .power10::before{content: '1024';}
+            .power11::before{content: '2048';}
+            .power12::before{content: '';}
+            .power13::before{content: '';}
+            .power14::before{content: '';}
+            .power15::before{content: '';}
+            .power16::before{content: '';}
+            .power17::before{content: '';}
+            .power18::before{content: '';}
+            .power19::before{content: '';}
+            .power20::before{content: '';}
+            .power21::before{content: '';}
+            .power22::before{content: '';}
+            .power23::before{content: '';}
+            .power24::before{content: '';}
+            .power25::before{content: '';}
             div[class*="power"] {
                 position:absolute;
             }
@@ -86,12 +111,19 @@
                 color: #cccccc;
             }
             .playerList{
-                box-shadow:10px 10px 10px 10px rgba(0,0,0,0.2);
+                box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.2);
                 width: 100vw;
                 position: fixed;
+                float: left;
                 display: flex;
                 flex-wrap: wrap;
                 bottom: 0px;
+                /* overflow-x: overlay; */
+                /* overflow-y: hidden; */
+                /* overflow: hidden; */
+                overflow-x: scroll;
+                /* overflow-y: scroll; */
+                height: 378px;
             }
             .playerList >div{
                 border-radius: 20px;
@@ -213,39 +245,32 @@
                     let playerList = document.getElementsByClassName('playerList')[0];
                     for(let item = 0 ;item< obj.length;item++){
                         let dir;
-                        if(localStorage.getItem("name") !== obj[item].name ){
-                            let playerName = document.getElementById( obj[item].name );
-                            if(playerName === null){
-                                let player = document.createElement('div');
-                                let div    = document.createElement('div');
-                                player.id = obj[item].name;
-                                playerList.appendChild(player);
-                                playerName = document.getElementById( obj[item].name );
-                                playerName.innerHTML =  '<div class="name">'+obj[item].name+'</div>';
-                                playerName.innerHTML += '<div class="data"><div>分數</div><div class="point">0</div><div>最高分</div><div class="top-point">0</div></div>';
-                                playerName.innerHTML += '<div class="game"></div>';
-                            }
-                            if(typeof obj[item].gridList !== "undefined"){
-
-                                let game     = playerName.getElementsByClassName('game')[0];
-                                let point    = playerName.getElementsByClassName('point')[0];
-                                let topPoint = playerName.getElementsByClassName('top-point')[0];
-                                point.innerHTML =  obj[item].point; 
-                                topPoint.innerHTML = obj[item].TPoint;
-                                game.innerHTML ='';
-                                for(let i=0;i < obj[item].gridList.length;i++){
-                                    let txt = obj[item].gridList.substr(i,1);
-                                    if(txt ==='0'){
-                                        game.innerHTML += '<div class="gameBG"></div>';
-                                    }else{
-                                        let num = parseInt(txt, 16);
-                                        if(num<11){
-                                            game.innerHTML += '<div class="power'+ num+'">'+Math.pow(2,num)+'</div>';
-                                        }else{
-                                            game.innerHTML += '<div class="power11">'+Math.pow(2,num)+'</div>';
-                                        }
-                                    }
-                                }
+                        if(localStorage.getItem("name") === obj[item].name ){ continue;}
+                        let playerName = document.getElementById( obj[item].name );
+                        if(playerName === null){
+                            let player = document.createElement('div');
+                            let div    = document.createElement('div');
+                            player.id = obj[item].name;
+                            playerList.appendChild(player);
+                            playerName = document.getElementById( obj[item].name );
+                            playerName.innerHTML =  '<div class="name">'+obj[item].name+'</div>';
+                            playerName.innerHTML += '<div class="data"><div>分數</div><div class="point">0</div><div>最高分</div><div class="top-point">0</div></div>';
+                            playerName.innerHTML += '<div class="game"></div>';
+                        }
+                        if(typeof obj[item].gridList === "undefined"){ continue;}
+                        let game     = playerName.getElementsByClassName('game')[0];
+                        let point    = playerName.getElementsByClassName('point')[0];
+                        let topPoint = playerName.getElementsByClassName('top-point')[0];
+                        point.innerHTML =  obj[item].point; 
+                        topPoint.innerHTML = obj[item].TPoint;
+                        game.innerHTML ='';
+                        for(let i=0;i < obj[item].gridList.length;i++){
+                            let txt = obj[item].gridList.substr(i,1);
+                            if(txt ==='0'){
+                                game.innerHTML += '<div class="gameBG"></div>';
+                            }else{
+                                let num = parseInt(txt, 16);
+                                game.innerHTML += '<div class="power'+ num+'"></div>';
                             }
                         }
                     }
